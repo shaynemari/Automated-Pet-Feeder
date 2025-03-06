@@ -21,13 +21,13 @@
 // Create OLED display object
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-// WiFi credentials
-const char* ssid = "LAPTOP-KE8SMJ1I 5187";
-const char* password = "z1101Q@2";
+// WiFi credentials (Replace with your own)
+const char* ssid = "YOUR_WIFI_SSID"; // Enter your WiFi SSID
+const char* password = "YOUR_WIFI_PASSWORD"; // Enter your WiFi password
 
-// Telegram Bot credentials
-#define BOTtoken "7759867874:AAGSjcLH0H5bEj4EdXRiOEviFYf4Ix6jBto"
-#define CHAT_ID "5329360116"
+// Telegram Bot credentials (Replace with your own)
+#define BOTtoken "YOUR_BOT_TOKEN" // Enter your bot token
+#define CHAT_ID "YOUR_CHAT_ID" // Enter your chat ID
 
 #ifdef ESP8266
   X509List cert(TELEGRAM_CERTIFICATE_ROOT);
@@ -48,7 +48,7 @@ Servo myservo;
 
 // Variables
 unsigned long lastFeedingTime = 0;
-unsigned long feedingInterval = 10 * 1000; // 10 seconds interval
+unsigned long feedingInterval = 8 * 60 * 60 * 1000; // 8 hours interval
 
 void handleNewMessages(int numNewMessages) {
   Serial.println("handleNewMessages");
@@ -63,11 +63,11 @@ void handleNewMessages(int numNewMessages) {
 
     String text = bot.messages[i].text;
     Serial.println(text);
-    String from_name   = bot.messages[i].from_name;
+    String from_name = bot.messages[i].from_name;
 
     if (text == "/start") {
       String welcome = "Welcome, " + from_name + ".\n";
-      welcome += "Food will be dispensed every 10 seconds.\n";
+      welcome += "Food will be dispensed every 8 hours.\n";
       bot.sendMessage(chat_id, welcome, "");
     }
   }
@@ -121,7 +121,7 @@ void loop() {
     lastTimeBotRan = millis();
   }
 
-  // Check if it's time to feed (every 10 seconds)
+  // Check if it's time to feed (every 8 hours)
   if (millis() - lastFeedingTime >= feedingInterval) {
     countdownAndDispense();
     lastFeedingTime = millis(); // Update last feeding time
