@@ -1,0 +1,25 @@
+# Ignore compiled binaries
+*.elf
+*.hex
+*.bin
+
+# Ignore temporary files
+*.log
+*.tmp
+*.bak
+.DS_Store
+
+# Ignore Arduino build files
+*.ino.cpp
+*.a
+*.o
+*.d
+
+# Ignore PlatformIO build folders
+.pio/
+.vscode/
+build/
+
+# Ignore WiFi credentials and sensitive files (if stored separately)
+config.json
+credentials.txt
